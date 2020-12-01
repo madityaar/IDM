@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: homizio;
+    src: url("../fonts/homizio/medium.ttf");
+}
+
+body {
+    font-family: 'homizio', sans-serif;
+}
+
+#nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar {
+    background-image: linear-gradient(to right, #285175, #24435e);
+    padding: 0 !important;
+}
+
+.navbar-brand {
+    padding-left: 20px;
+    color: #FDB93A !important;
+}
+
+
+/* nanti kalau ada logo ganti jadi yang bawah */
+
+
+/* .navbar-brand img {
+height: 40px;
+padding-left: 20px;
+} */
+
+.navbar-nav li {
+    padding: 0 10px;
+}
+
+.navbar-nav li a {
+    color: #fff !important;
+    font-weight: 600;
+    float: right;
+    text-align: left;
+}
+
+.fa-bars {
+    color: #fff;
+    font-size: 30px !important;
+}
+
+.navbar-toggler {
+    outline: none !important;
+}
+
+
+/* Card */
+
+.card-section {
+    padding-top: 30px;
+    display: inline;
+}
+
+
+/* Chart */
+
+.number-idm {
+    background: #1E3D59;
+}
+
+#numbering-idm {
+    font-family: 'homizio';
+    color: #FDB93A;
+}
