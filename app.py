@@ -107,8 +107,8 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',
                         'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
                         ]
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets,title='DayaData', update_title='Memuat...')
+server = app.server
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
 
@@ -126,7 +126,7 @@ app.layout = html.Div(children=[
     html.Meta(name="viewport", content="width=device-width, initial-scale=1"),
     html.Section(id="nav-bar", children=[
         html.Nav(className="navbar navbar-expand-lg navbar-light", children=[
-            html.A(className="navbar-brand",children=['''IDMJ''']),
+            html.A(className="navbar-brand",children=['''DayaData''']),
             html.Div(id="navbarNav", className="collapse navbar-collapse", children=[
                 html.Ul(className="navbar-nav ml-auto", children=[
                     html.Li(className="nav-item",children=[
@@ -150,7 +150,7 @@ app.layout = html.Div(children=[
             html.Div(className="col-lg-12 pt-4",children=[
                 html.Div(className="card", children=[
                     html.Div(className="card-body", children=[
-                        html.H1(className="row",children='Index Desa Membangun'),
+                        html.H1(className="row",children='DayaData - Data untuk Pemberdayaan Desa'),
                         dcc.Dropdown(id="dropdown-desa",
                             options=[{"label": i, "value": i} for i in desa_options
                             ],
@@ -160,9 +160,9 @@ app.layout = html.Div(children=[
                         html.Div(children=[
                         dcc.Tabs(className="row",id='tabs-example', value='Semua Bidang', children=[
                             dcc.Tab(label='Semua Bidang', value='Semua Bidang'),
-                            dcc.Tab(label='Social', value='Sosial'),
-                            dcc.Tab(label='Economy', value='Ekonomi'),
-                            dcc.Tab(label='Environment', value='Lingkungan'),
+                            dcc.Tab(label='Sosial', value='Sosial'),
+                            dcc.Tab(label='Ekonomi', value='Ekonomi'),
+                            dcc.Tab(label='Lingkungan', value='Lingkungan'),
                         ],
                             style={'margin-bottom':'50px'}),
                         html.Div(children=[
@@ -172,8 +172,8 @@ app.layout = html.Div(children=[
                                     id='radio-mode',
                                     options=[{'label': i, 'value': i} for i in all_options],
                                     value='Semua Indeks Komposit',
-                                    labelStyle={'display': 'inline-block'},
-                                    inputStyle={'margin-left': '30px'}
+                                    labelStyle={'display': 'inline-block','padding':'10px'},
+                                    inputStyle={'padding': '20px'}
                                 )
                             ],
                             style={'width': '48%', 'display': 'inline-block'})
@@ -223,7 +223,7 @@ app.layout = html.Div(children=[
                                 page_action='custom',
                                 sort_action="custom",
                                 sort_by=[],
-                                style_table={'height': 'auto', 'overflowY': 'auto'}
+                                style_table={'height': 'auto','overflow':'none','width':'70%','left':'15%'}
                             ),
                             
                             ])
@@ -352,10 +352,10 @@ def render_table(tab,mode, page_current, page_size, sort_by,nama_desa):
 def update_graph(mode,tab,nama_desa):
     points = [0,0]
     df_selected = pd.DataFrame({
-    "Status": ["Fullfiled", "Unfullfiled"],
-    "Point": cal_point(slicesDict[mode],df_value,points,nama_desa)
+    "Status": ["Terpenuhi", "Belum Terpenuhi"],
+    "Total": cal_point(slicesDict[mode],df_value,points,nama_desa)
     })
-    fig = px.pie(df_selected, values='Point', names='Status',title='IDM {} - {}'.format(tab,mode))
+    fig = px.pie(df_selected, values='Total', names='Status',title='IDM {} - {}'.format(tab,mode))
     return html.Div(
         dcc.Graph(
             id="example-graph",
